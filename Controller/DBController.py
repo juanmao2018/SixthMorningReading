@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 # 2018-10-29
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -30,7 +29,6 @@ class DBInit(object):
 
     def init_db(self):
         """定义初始化数据库函数"""
-        # Base.metadata.create_all(self.engine) # Create a Schema
         Base.metadata.create_all(self.engine, tables=[MemberModel.__table__, MessageModel.__table__]) # Create a Schema
 
 

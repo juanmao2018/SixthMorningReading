@@ -63,7 +63,8 @@ class CleanMember(object):
             else:  # unknown
                 memb.label = 'U'
             # print(memb)
-            if (memb.qqID != '2109723514') and (memb.qqID != 'scalerstalk@gmail.com'):
+            if (memb.qqID != '2109723514') and (memb.qqID != 'scalerstalk@gmail.com') \
+                and(memb.qqID != '1000000'):
                 self.formatedDatas.append(memb)
         #-- END for
         return 1

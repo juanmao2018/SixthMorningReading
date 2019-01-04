@@ -23,12 +23,26 @@
 
 
 # 2018-12-23    Version 0.2
+**说明**
+1. CleanTask中多个正则表达式同时使用，提升匹配效率。
+2. CleanMesssage
+  (1) 去掉ID为'2109723514'或'scalerstalk@gmail.com'的发言记录；
+3. 新增 MemberModel、CleanMemb、StoreMemb 模块。
+
+**TIPS**
+1. 使用单线程、多线程、多进程的时间均为34S左右。
+2. 使用str.replace(old, new[, max])和re.sub(pattern,repl,string,count,flags)的时间分别为：9.4S、34S。
+3. 使用数据库表的unique限制（发言日期、发言时间）对消息去重，清洗完的数据有73362条，插入数据库的数据有13116条。
+
+
+
+# 2018-12-30    Version 0.3.0
 **结构**
-- Model 
+- Model
   - MemberModel.py 成员模型定义
   - MessageModel.py 消息模型定义
 - Controller
-  - DBController.py 数据库控制程序 
+  - DBController.py 数据库控制程序
   - Cleaning
     - CleanTask.py 清洗任务信息
     - CleanMember.py 清洗成员信息
@@ -37,35 +51,15 @@
   - Persistence
     - StoreMember.py 成员信息存入数据库
     - StoreMessage.py 消息存入数据库
+  - Analysis
+    - AnalyseMember.py 成员打卡信息分析
 - Utils
   - Configuration.py 公共信息
 - inputs
 - outputs
 
-
 **说明**
-1. CleanTask中多个正则表达式同时使用，提升匹配效率。
-2. CleanMesssage
-  (1) 去掉ID为'2109723514'或'scalerstalk@gmail.com'的发言记录；
-3. 新增 MemberModel、CleanMember、StoreMember 模块。
-
+1. 新增模块 AnalyseMember.py 成员打卡信息分析。
 
 **TIPS**
-1. 使用单线程、多线程、多进程的时间均为34S左右。
-2. 使用str.replace(old, new[, max])和re.sub(pattern,repl,string,count,flags)的时间分别为：9.4S、34S。
-3. 使用数据库表的unique限制（发言日期、发言时间）对消息去重，清洗完的数据有73362条，插入数据库的数据有13116条。
-4. 清洗入库数据SQL：
-  (1) ID为邮箱，但相同用户名的有对应QQ号的清洗
-```
-UPDATE test.six_member six inner JOIN test.fr_member fr ON six.qqID = fr.email
-SET six.qqID = fr.qq_id WHERE six.qqID like '%@%'; -- 与参照表对照
-
-UPDATE test.six_member a inner JOIN test.six_member b ON a.qqName = b.qqName
-SET a.qqID = b.qqID WHERE a.qqID like '%@%' and b.qqID not like '%@%'; -- 与自身表的对照
-```
-  (2) 去掉某列重复的记录
-```
-delete from test.six_member 
-where memberid not in (select min(memberid) from (select * from test.six_member) a group by qqID);
-```
-
+1. 单线程生成全体分析报告用时401.0S。

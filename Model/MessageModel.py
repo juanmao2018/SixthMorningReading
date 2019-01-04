@@ -33,5 +33,5 @@ class MessageModel(Base):
     def __repr__(self):
         return "<%s(qqID='%s', msgdate=%s, msgtime='%s', contentLen='%s', dayFlag='%s')>" % (
             self.__class__.__name__, self.qqID, self.msgdate, self.msgtime, 
-            len(self.content), self.dayFlag,)
+            len(self.content), self.dayFlag)
    

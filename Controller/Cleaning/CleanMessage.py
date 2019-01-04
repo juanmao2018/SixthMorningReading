@@ -98,7 +98,8 @@ class CleanMessage(object):
                     # contentText = list(set(contentText).difference(self.ignoredTexts[dayFlag])) # ???
                     msg.dayFlag = dayFlag
                     contentText = list(map(lambda x: x.strip(), contentText))
-                    msg.content = "".join(list(filter(lambda x: len(x)>1, contentText)))
+                    contentText = "".join(list(filter(lambda x: len(x)>1, contentText)))
+                    msg.content = contentText
                 except Exception as e:
                     # print('任务中没有包含的dayFlag：', dayFlag)
                     return 0

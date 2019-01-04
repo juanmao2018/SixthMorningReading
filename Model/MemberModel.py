@@ -13,8 +13,8 @@ class MemberModel(Base):
     # 字段
     memberid = Column(Integer, primary_key=True, autoincrement=True) # 用户的主键
     qqID = Column(String(64), nullable=False) # 用户编号
-    qqName = Column(String(64)) # 用户名称
-    nickname = Column(String(64)) # 用户昵称
+    qqName = Column(String(100)) # 用户名称
+    nickname = Column(String(100)) # 用户昵称
     email = Column(String(64)) # 邮箱
     label = Column(String(1), comment="S-'S'；Y-'游学'；U-'未知'") # S-'S'；Y-'游学'；U-'未知'
     city = Column(String(64)) # 城市
